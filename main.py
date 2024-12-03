@@ -5,7 +5,7 @@ from sudoku_generator import *
 pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Sudoku")
-number_font = pygame.font.Font(None, 60)
+number_font = pygame.font.Font(None, NUMBER_FONT)
 
 def draw_grid():
     # draw horizontal lines
