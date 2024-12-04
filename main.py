@@ -13,31 +13,11 @@ board.fill_remaining(0, 0)
 board.remove_cells()
 updated = board.get_board()
 
+selected_cell = None
 game_over = False
 wins = 0
 
 def draw_grid():
-    # draw horizontal lines
-    for i in range(1, BOARD_ROWS):
-
-        pygame.draw.line(
-            screen,
-            LINE_COLOR,
-            (0, i * SQUARE_SIZE),
-            (WIDTH, i * SQUARE_SIZE),
-            LINE_WIDTH
-        )
-
-    #draw vertical lines
-    for i in range(1, BOARD_ROWS):
-        pygame.draw.line(
-            screen,
-            LINE_COLOR,
-            (i * SQUARE_SIZE, 0),
-            (i * SQUARE_SIZE, HEIGHT - 60),
-            LINE_WIDTH
-        )
-
     pygame.draw.line(screen,
                      LINE_COLOR,
                      (0, HEIGHT - 60),
@@ -98,5 +78,13 @@ while True:
             x, y = event.pos
             row = y // SQUARE_SIZE
             col = x // SQUARE_SIZE
+
+    for row in range(9):
+        for col in range(9):
+            pygame.draw.rect(screen, (0, 0, 0), (col * 60, row * 60, SQUARE_SIZE, SQUARE_SIZE), 1)
+            if selected_cell == (row, col):
+                pygame.draw.rect(screen, (255, 0, 0), (col * 60, row * 60, SQUARE_SIZE, SQUARE_SIZE), 1)
+
+
 
     pygame.display.update()
