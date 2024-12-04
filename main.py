@@ -78,6 +78,7 @@ while True:
             x, y = event.pos
             row = y // SQUARE_SIZE
             col = x // SQUARE_SIZE
+            selected_cell = (row, col)
 
     for row in range(9):
         for col in range(9):
