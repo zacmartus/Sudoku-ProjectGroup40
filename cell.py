@@ -1,5 +1,5 @@
 import pygame
-from constants import convert_list
+from constants import *
 
 pygame.font.init()
 
