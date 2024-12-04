@@ -1,5 +1,3 @@
-from itertools import islice
-
 WIDTH = 540
 HEIGHT = 600
 LINE_WIDTH = 1
@@ -16,7 +14,3 @@ LINE_COLOR = (0, 0, 0)
 CROSS_COLOR = (66, 66, 66)
 NUMBER_FONT = 60
 GAME_OVER_FONT = 40
-
-def convert_list(lst, var_lst):
-    it = iter(lst)
-    return [list(islice(it, i)) for i in var_lst]
