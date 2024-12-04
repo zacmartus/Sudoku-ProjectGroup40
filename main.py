@@ -12,19 +12,19 @@ class Cell:
         self.sketched_value = 0  # Default sketched value is 0
         self.selected = False
         self.locked = value != 0  # Cells with a non-zero value are locked and cannot be changed
-
-    def set_cell_value(self, value):
+    
+    def set_cell_value(self, value): # set a value for cell
         if not self.locked:  # Prevent changing locked values
             self.value = value
             self.locked = True
-            self.sketched_value = 0  # Clear the sketched value after confirming
+            self.sketched_value = 0  # Clear the sketched value
 
     def set_sketched_value(self, value):
         if not self.locked:  # Only allow sketching in unlocked cells
             self.sketched_value = value
 
     def clear_sketched_value(self):
-        self.sketched_value = 0  # Clear the sketched value when necessary
+        self.sketched_value = 0  # Clear the sketched value
 
     def draw(self):
         x = self.col * 60
@@ -50,7 +50,7 @@ class Cell:
             self.screen.blit(text, text_rect)
 
 
-class Board:
+class Board: # Initializes boad and difficulty
     def __init__(self, width, height, screen, difficulty):
         self.width = width
         self.height = height
@@ -66,13 +66,13 @@ class Board:
             'medium': 40,
             'hard': 50
         }[self.difficulty]
-        generator = SudokuGenerator(9, removed_cells)
+        generator = SudokuGenerator(9, removed_cells) # Makes the board with correct number of cells filled
         generator.fill_values()
         generator.remove_cells()
         board = generator.get_board()
         return [[Cell(board[row][col], row, col, self.screen) for col in range(9)] for row in range(9)]
 
-    def draw(self):
+    def draw(self): #draws the board
         self.screen.fill((255, 255, 255))
         for row in self.cells:
             for cell in row:
@@ -83,7 +83,7 @@ class Board:
             pygame.draw.line(self.screen, (0, 0, 0), (i * 60, 0), (i * 60, 540), line_width)
             pygame.draw.line(self.screen, (0, 0, 0), (0, i * 60), (540, i * 60), line_width)
 
-    def click(self, x, y):
+    def click(self, x, y): # Select a cell
         if 0 <= x < 540 and 0 <= y < 540:
             row = y // 60
             col = x // 60
@@ -103,7 +103,7 @@ class Board:
             if not cell.locked:  # Only clear if the cell is not locked
                 cell.clear_sketched_value()
 
-    def sketch(self, value):
+    def sketch(self, value): # Sketch a value
         if self.selected_row is not None and self.selected_col is not None:
             self.cells[self.selected_row][self.selected_col].set_sketched_value(value)
 
@@ -111,12 +111,12 @@ class Board:
         if self.selected_row is not None and self.selected_col is not None:
             self.cells[self.selected_row][self.selected_col].set_cell_value(value)
 
-    def reset_to_original(self):
+    def reset_to_original(self): # Reset te board
         self.cells = self.initialize_cells()
         self.selected_row = None
         self.selected_col = None
 
-    def is_full(self):
+    def is_full(self): # Check if board is full
         return all(cell.value != 0 for row in self.cells for cell in row)
 
     def check_board(self):
@@ -158,7 +158,7 @@ def main():
     game_over = False
     result_message = ""
 
-    while True:
+    while True: # Game loop
         if game_state == "start":
             SCREEN.fill((255, 255, 255))
             font = pygame.font.Font(None, 48)
